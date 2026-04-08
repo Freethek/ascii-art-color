@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"os"
 	"strings"
@@ -52,7 +53,30 @@ func main() {
 		}
 	}
 
-	
+	//getting the value of the color flag
+	if len(os.Args) > 2 {
+		flag.StringVar(&colorName, "color", "", "color to use")
+		flag.Parse()
+	}
+
+	//exit with a succes status if there is no input
+	if input == "" {
+		os.Exit(0)
+	}
+
+	//getting the ansi code for the color
+	ansiCode := ""
+	if colorName != "" {
+		ansiCode = GetAnsiCode(colorName)
+	}
+
+	//loading the graphic character into the bannerMap
+	bannerMap := banner.Load("banners/" + bannerName + ".txt")
+
+	//printing the graphic representation of the input and the substring colored with the provided color
+	result := render.Render(ansiCode, input, substring, bannerName)
+
+	fmt.Print(result)
 }
 
 // checking for the right flag func
