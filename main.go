@@ -1,6 +1,9 @@
 package main
 
 import (
+	"ascii-art-color/banner"
+	"ascii-art-color/color"
+	"ascii-art-color/render"
 	"flag"
 	"fmt"
 	"os"
@@ -67,21 +70,21 @@ func main() {
 	//getting the ansi code for the color
 	ansiCode := ""
 	if colorName != "" {
-		ansiCode = GetAnsiCode(colorName)
+		ansiCode = color.GetAnsiCode(colorName)
 	}
 
 	//loading the graphic character into the bannerMap
 	bannerMap := banner.Load("banners/" + bannerName + ".txt")
 
 	//printing the graphic representation of the input and the substring colored with the provided color
-	result := render.Render(ansiCode, input, substring, bannerName)
-
+	result := render.Render(ansiCode, input, substring, bannerMap)
+	
 	fmt.Print(result)
 }
 
 // checking for the right flag func
 func checkForFlagPrefix(flag string) bool {
-	if strings.HasPrefix("flag", "--color=") {
+	if strings.HasPrefix(flag, "--color=") {
 		return true
 	} else {
 		return false
