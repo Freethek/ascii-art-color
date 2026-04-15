@@ -34,7 +34,7 @@ func Load(fileName string) map[rune][]string {
 	for i := 32; i <= 126; i++ {
 		start := (i-32)*9 + 1
 		grab8lines := lines[start : start+8]
-		bannerMap[rune(32)] = grab8lines
+		bannerMap[rune(i)] = grab8lines
 	}
 
 	return bannerMap
