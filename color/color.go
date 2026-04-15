@@ -26,7 +26,7 @@ func GetAnsiCode(colorName string) string {
 }
 
 // finding the color indexes
-func FinfColorIndex(substring, input string) map[int]bool {
+func FindColorIndex(substring, input string) map[int]bool {
 	indexes := make(map[int]bool)
 
 	//if the input is empty
@@ -40,8 +40,9 @@ func FinfColorIndex(substring, input string) map[int]bool {
 			indexes[i] = true
 		}
 	} else {
+		start := 0
 		for {
-			start := 0
+
 			//checking for the first index of the subtring in the input
 			ind := strings.Index(input[start:], substring)
 			if ind == -1 {
