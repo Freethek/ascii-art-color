@@ -4,7 +4,6 @@ import (
 	"ascii-art-color/banner"
 	"ascii-art-color/color"
 	"ascii-art-color/render"
-	"flag"
 	"fmt"
 	"os"
 	"strings"
@@ -23,13 +22,14 @@ func main() {
 	} else if len(os.Args) == 2 {
 		if checkForFlagPrefix(os.Args[1]) {
 			Error()
-		} else if !checkForFlagPrefix(os.Args[1]) {
+		} else {
 			substring = ""
 			input = os.Args[1]
 		}
 
 	} else if len(os.Args) == 3 {
 		if checkForFlagPrefix(os.Args[1]) {
+			colorName = strings.TrimPrefix(os.Args[1], "--color=")
 			substring = ""
 			input = os.Args[2]
 		} else {
@@ -37,6 +37,7 @@ func main() {
 		}
 	} else if len(os.Args) == 4 {
 		if checkForFlagPrefix(os.Args[1]) {
+			colorName = strings.TrimPrefix(os.Args[1], "--color=")
 			substring = os.Args[2]
 			input = os.Args[3]
 		} else {
@@ -45,6 +46,7 @@ func main() {
 	} else if len(os.Args) == 5 {
 		if checkForFlagPrefix(os.Args[1]) {
 			if isValidBanner(os.Args[4]) {
+				colorName = strings.TrimPrefix(os.Args[1], "--color=")
 				substring = os.Args[2]
 				input = os.Args[3]
 				bannerName = os.Args[4]
@@ -54,12 +56,6 @@ func main() {
 		} else {
 			Error()
 		}
-	}
-
-	//getting the value of the color flag
-	if len(os.Args) > 2 {
-		flag.StringVar(&colorName, "color", "", "color to use")
-		flag.Parse()
 	}
 
 	//exit with a succes status if there is no input
@@ -78,7 +74,7 @@ func main() {
 
 	//printing the graphic representation of the input and the substring colored with the provided color
 	result := render.Render(ansiCode, input, substring, bannerMap)
-	
+
 	fmt.Print(result)
 }
 
