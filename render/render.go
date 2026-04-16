@@ -2,7 +2,6 @@ package render
 
 import (
 	"ascii-art-color/color"
-	"fmt"
 	"strings"
 )
 
@@ -18,9 +17,8 @@ func Render(ansicode, input, substring string, bannerMap map[rune][]string) stri
 		if segment == "" {
 			result += "\n"
 		} else {
-			fmt.Print(segment)
+
 			toBeColored := color.FindColorIndex(substring, segment)
-			fmt.Print(toBeColored)
 			converted := []rune(segment)
 
 			for row := 0; row <= 7; row++ {
@@ -33,7 +31,7 @@ func Render(ansicode, input, substring string, bannerMap map[rune][]string) stri
 
 					line += bannerMap[ch][row]
 
-					if ansicode != "" && toBeColored[i] && (i == len(converted)-1 || !toBeColored[i+i]) {
+					if ansicode != "" && toBeColored[i] && (i == len(converted)-1 || !toBeColored[i+1]) {
 						line += "\033[0m"
 					}
 				}
