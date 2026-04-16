@@ -1,6 +1,8 @@
 package color
 
-import "strings"
+import (
+	"strings"
+)
 
 // variable map that hold all the ansicolor and their corresponding ansicode
 var ansicodes = map[string]string{
@@ -57,6 +59,5 @@ func FindColorIndex(substring, input string) map[int]bool {
 		}
 
 	}
-
 	return indexes
 }
